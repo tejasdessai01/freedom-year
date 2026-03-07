@@ -1,0 +1,177 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:ital,wght@0,600;1,600&display=swap');
+
+:root {
+  --bg-canvas: #FAFAF9;
+  --bg-surface: #FFFFFF;
+  --text-main: #292524; /* Warm Charcoal */
+  --text-sub: #78716C;   /* Stone */
+  --brand: #E17654;      /* Terracotta */
+  --brand-light: #FFEDD5;
+  --border: #E7E5E4;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.03), 0 4px 6px -4px rgb(0 0 0 / 0.03);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-canvas);
+  color: var(--text-main);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* Layout */
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  width: 100%;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--text-main);
+  margin: 0 0 0.5rem 0;
+}
+
+.subtitle {
+  color: var(--text-sub);
+  font-size: 1.1rem;
+}
+
+/* The Calculator Card */
+.calculator {
+  background: var(--bg-surface);
+  border-radius: 24px;
+  padding: 3rem;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+}
+
+@media (max-width: 768px) {
+  .calculator { grid-template-columns: 1fr; gap: 2rem; padding: 2rem; }
+}
+
+/* Inputs */
+.input-group { margin-bottom: 2rem; }
+
+label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-sub);
+  margin-bottom: 0.75rem;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+/* Custom Slider Styling */
+input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  background: transparent;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background: var(--brand);
+  cursor: pointer;
+  margin-top: -10px;
+  box-shadow: 0 2px 6px rgba(225, 118, 84, 0.4);
+  transition: transform 0.1s;
+}
+
+input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: #E5E5E5;
+  border-radius: 2px;
+}
+
+.value-display {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: var(--text-main);
+  min-width: 80px;
+  text-align: right;
+}
+
+/* The Result Side */
+.result-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border-left: 1px solid var(--border);
+  padding-left: 4rem;
+}
+
+@media (max-width: 768px) {
+  .result-section { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 2rem; }
+}
+
+.freedom-label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--brand);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.freedom-year {
+  font-family: 'Playfair Display', serif;
+  font-size: 6rem;
+  line-height: 1;
+  color: var(--text-main);
+  margin-bottom: 1rem;
+}
+
+.freedom-details {
+  color: var(--text-sub);
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.highlight {
+  color: var(--text-main);
+  font-weight: 600;
+  border-bottom: 2px solid var(--brand-light);
+}
+
+footer {
+  margin-top: auto;
+  text-align: center;
+  padding: 2rem;
+  color: var(--text-sub);
+  font-size: 0.8rem;
+}

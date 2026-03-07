@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Freedom Year</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Freedom Year</h1>
+      <div class="subtitle">When does work become optional?</div>
+    </header>
+
+    <div class="calculator">
+      <!-- Controls -->
+      <div class="controls">
+        
+        <div class="input-group">
+          <label>Current Age</label>
+          <div class="slider-container">
+            <input type="range" id="currentAge" min="18" max="80" value="30">
+            <span class="value-display" id="disp-currentAge">30</span>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Current Savings</label>
+          <div class="slider-container">
+            <input type="range" id="currentSavings" min="0" max="1000000" step="5000" value="50000">
+            <span class="value-display" id="disp-currentSavings">$50,000</span>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Monthly Contribution</label>
+          <div class="slider-container">
+            <input type="range" id="monthlySavings" min="0" max="20000" step="100" value="2000">
+            <span class="value-display" id="disp-monthlySavings">$2,000</span>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Annual Return</label>
+          <div class="slider-container">
+            <input type="range" id="interestRate" min="1" max="12" step="0.1" value="7">
+            <span class="value-display" id="disp-interestRate">7.0%</span>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Target Monthly Income</label>
+          <div class="slider-container">
+            <input type="range" id="targetIncome" min="1000" max="20000" step="500" value="5000">
+            <span class="value-display" id="disp-targetIncome">$5,000</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Results -->
+      <div class="result-section">
+        <div class="freedom-label">You will be free in</div>
+        <div class="freedom-year" id="freedomYear">2042</div>
+        <div class="freedom-details">
+          At age <span class="highlight" id="freedomAge">46</span>, your nest egg will hit <span class="highlight" id="freedomNestEgg">$1.5M</span>.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Built with the Lumina Design System.
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
