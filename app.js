@@ -1,23 +1,24 @@
-// Inputs
 const inputs = {
+  targetIncome: document.getElementById('targetIncome'),
   currentAge: document.getElementById('currentAge'),
   currentSavings: document.getElementById('currentSavings'),
-  monthlySavings: document.getElementById('monthlySavings'),
   interestRate: document.getElementById('interestRate'),
-  targetIncome: document.getElementById('targetIncome')
+  monthlySavings: document.getElementById('monthlySavings')
 };
 
-// Displays
 const displays = {
-  currentAge: document.getElementById('disp-currentAge'),
-  currentSavings: document.getElementById('disp-currentSavings'),
+  freedomNumber: document.getElementById('freedomNumber'),
   monthlySavings: document.getElementById('disp-monthlySavings'),
-  interestRate: document.getElementById('disp-interestRate'),
-  targetIncome: document.getElementById('disp-targetIncome'),
-  freedomYear: document.getElementById('freedomYear'),
-  freedomAge: document.getElementById('freedomAge'),
-  freedomNestEgg: document.getElementById('freedomNestEgg')
+  freedomYears: document.getElementById('freedomYears'),
+  freedomDate: document.getElementById('freedomDate'),
+  freedomAge: document.getElementById('freedomAge')
 };
+
+function formatMoneyShort(num) {
+  if (num >= 1000000) return '$' + (num / 1000000).toFixed(1) + 'M';
+  if (num >= 1000) return '$' + (num / 1000).toFixed(0) + 'k';
+  return '$' + num;
+}
 
 function formatMoney(num) {
   return '$' + Number(num).toLocaleString();
@@ -25,58 +26,52 @@ function formatMoney(num) {
 
 function update() {
   // 1. Get Values
+  const monthlySpend = Number(inputs.targetIncome.value);
   const age = Number(inputs.currentAge.value);
   let nestEgg = Number(inputs.currentSavings.value);
-  const monthly = Number(inputs.monthlySavings.value);
   const rate = Number(inputs.interestRate.value) / 100;
-  const targetMonthly = Number(inputs.targetIncome.value);
-  
-  // 2. Update Input Displays
-  displays.currentAge.innerText = age;
-  displays.currentSavings.innerText = formatMoney(nestEgg);
-  displays.monthlySavings.innerText = formatMoney(monthly);
-  displays.interestRate.innerText = (rate * 100).toFixed(1) + '%';
-  displays.targetIncome.innerText = formatMoney(targetMonthly);
+  const monthlyContrib = Number(inputs.monthlySavings.value);
 
-  // 3. The Freedom Calculation (The 4% Rule)
-  // Target Nest Egg = Annual Spend / 0.04
-  const targetNestEgg = (targetMonthly * 12) / 0.04;
+  // 2. The Target (The Goal)
+  // 4% Rule: Need 25x annual expenses
+  const targetNumber = (monthlySpend * 12) * 25;
+  displays.freedomNumber.innerText = formatMoneyShort(targetNumber);
   
+  // Update Hero Slider Display
+  displays.monthlySavings.innerText = formatMoney(monthlyContrib);
+
+  // 3. The Timeline (The Reality)
   const currentYear = new Date().getFullYear();
   let yearsPassed = 0;
-  
-  // Prevent infinite loops if they can never retire
-  const MAX_YEARS = 80; 
   let reached = false;
-
-  while (yearsPassed < MAX_YEARS) {
-    if (nestEgg >= targetNestEgg) {
+  
+  // Cap calculation at 100 years to prevent crashes
+  while (yearsPassed < 100) {
+    if (nestEgg >= targetNumber) {
       reached = true;
       break;
     }
-    // Add annual growth + savings
+    // Compounding: Add interest + contributions
     const annualGrowth = nestEgg * rate;
-    const annualSavings = monthly * 12;
-    nestEgg += annualGrowth + annualSavings;
+    const annualContrib = monthlyContrib * 12;
+    nestEgg += annualGrowth + annualContrib;
     yearsPassed++;
   }
 
-  // 4. Update Result
+  // 4. Render Result
   if (reached) {
-    displays.freedomYear.innerText = currentYear + yearsPassed;
+    displays.freedomYears.innerText = yearsPassed === 0 ? "Today" : `${yearsPassed} Years`;
+    displays.freedomDate.innerText = currentYear + yearsPassed;
     displays.freedomAge.innerText = age + yearsPassed;
-    displays.freedomNestEgg.innerText = formatMoney(nestEgg);
   } else {
-    displays.freedomYear.innerText = "Never";
+    displays.freedomYears.innerText = "Never";
+    displays.freedomDate.innerText = "—";
     displays.freedomAge.innerText = "—";
-    displays.freedomNestEgg.innerText = "—";
   }
 }
 
-// Attach Listeners
-Object.values(inputs).forEach(input => {
-  input.addEventListener('input', update);
-});
+// Listeners
+Object.values(inputs).forEach(el => el.addEventListener('input', update));
 
 // Init
 update();
